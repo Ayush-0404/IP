@@ -1,117 +1,111 @@
-#Q2 asg-3
-f=open('sorted_data.txt','r')
-#r=f.read()
-d1={}
-d2={}
-d3={}
-l2=[]
-#def Querry1(stu,t):
-#    count=0
-#    #stu=(input('enter student name'))
-#    t=input('current_time:')
-#    for stu in d1.keys():
-#        count+=1
-#        print(d1[stu])
-   
+# Read the sorted data file
+f = open('sorted_data.txt', 'r')
+
+# Initialize the dictionaries
+student_records = {}
+
+# Process each line in the file
 for line in f:
+    # Strip and split the line
+    l = line.strip()
+    l1 = l.split(",")
+
+    # Get the details
+    student_name = l1[0]
+    crossing_type = l1[1]
+    gate_number = l1[2]
+    time = l1[3]
+
+    # Initialize the nested dictionary if the student is not already in the records
+    if student_name not in student_records:
+        student_records[student_name] = {
+            'crossing_type': [],
+            'gate_number': [],
+            'time': []
+        }
     
-    #print(line)
-    l=line.strip()
-    l1=l.split(",")
-   
-    if l1[0] not in d3.keys():
-        ct=[]
-        ct.append(l1[1])
-        gn=[]
-        gn.append(l1[2])
-        t=[]
-        t.append(l1[3])
-        d2['crossing_typ']=ct
-        d2['Gate_no']=gn
-        d2['time']=t
-        d3[l1[0]]=d2
-   # else:
-#        ct.append(l1[1])
-#        gn.append(l1[2])
-#        t.append(l1[3])
-#  
-print(d3)
-        #d2['crossing_type']=l1[1]
-        #d2['Gate_no']=l1[2]
-        #d2['Time']=l1[3]  
-        #d3[l1[0]]=d2
-        #l2.append(l1[0])
-#    if l1[0] in d3:
-     #   s1=(d3[l1[0]]['crossing_type']),l1[1]
-#        s2=(d3[l1[0]]['Gate_no']),l1[2]
-#        s3=(d3[l1[0]]['Time']),l1[3]
-    #    d3[l1[0]]['crossing_type']=(d3[l1[0]]['crossing_type']),l1[1]
-#        d3[l1[0]]['Gate_no']=(d3[l1[0]]['Gate_no']),l1[2]
-#        d3[l1[0]]['Time']=(d3[l1[0]]['Time']),l1[3]
-#print(d3)
-t=true
-while t:
-    print('select_no. form 1 to 3:')
-    a=int(input('enter_no: '))
-    if a==1:
-        stu=(input('enter student name: '))
-        t=input('current_time:')
-#    print(Querry1(stu,t))
-    elif a==2:
-         print(Querry2())
-    elif a==3:
-        print(Querry3())
-    elif a==(""):
+    # Append the current record to the student's records
+    student_records[student_name]['crossing_type'].append(crossing_type)
+    student_records[student_name]['gate_number'].append(gate_number)
+    student_records[student_name]['time'].append(time)
+
+f.close()
+
+# Query functions
+def query1(student_name, current_time):
+    # Check if the student exists in the records
+    if student_name in student_records:
+        records = list(zip(student_records[student_name]['crossing_type'], 
+                           student_records[student_name]['gate_number'], 
+                           student_records[student_name]['time']))
+
+        # Determine if the student is currently in the campus
+        last_crossing = student_records[student_name]['crossing_type'][-1]
+        currently_in_campus = last_crossing == 'ENTER'
+
+        # Write the output to a file
+        with open('query1_output.txt', 'w') as f:
+            for record in records:
+                f.write(f"{student_name}, {record[0]}, {record[1]}, {record[2]}\n")
+            f.write(f"Currently in campus: {'YES' if currently_in_campus else 'NO'}\n")
+        
+        print(f"Records written to query1_output.txt. Currently in campus: {'YES' if currently_in_campus else 'NO'}")
+    else:
+        print("Student not found.")
+
+def query2(start_time, end_time):
+    entered_during_period = []
+    exited_during_period = []
+
+    for student, records in student_records.items():
+        for crossing_type, time in zip(records['crossing_type'], records['time']):
+            if start_time <= time <= end_time:
+                if crossing_type == 'ENTER':
+                    entered_during_period.append(f"{student}, {crossing_type}, {time}")
+                elif crossing_type == 'EXIT':
+                    exited_during_period.append(f"{student}, {crossing_type}, {time}")
+
+    # Write the output to a file
+    with open('query2_output.txt', 'w') as f:
+        f.write("Entered during period:\n")
+        for entry in entered_during_period:
+            f.write(entry + '\n')
+        f.write("Exited during period:\n")
+        for exit in exited_during_period:
+            f.write(exit + '\n')
+    
+    print("Records written to query2_output.txt.")
+
+def query3(gate_number):
+    enter_count = 0
+    exit_count = 0
+
+    for records in student_records.values():
+        for crossing_type, gate in zip(records['crossing_type'], records['gate_number']):
+            if gate == gate_number:
+                if crossing_type == 'ENTER':
+                    enter_count += 1
+                elif crossing_type == 'EXIT':
+                    exit_count += 1
+
+    print(f"Gate {gate_number}: ENTER count = {enter_count}, EXIT count = {exit_count}")
+
+# Main loop for querying
+while True:
+    print('Select option (1 to 3), or press Enter to exit:')
+    option = input('Enter option: ')
+    if option == '1':
+        student_name = input('Enter student name: ')
+        current_time = input('Enter current time: ')
+        query1(student_name, current_time)
+    elif option == '2':
+        start_time = input('Enter start time: ')
+        end_time = input('Enter end time: ')
+        query2(start_time, end_time)
+    elif option == '3':
+        gate_number = input('Enter gate number: ')
+        query3(gate_number)
+    elif option == '':
         break
     else:
-        print('wrong input')
-        break
-
-    
-def Querry1(stu,t):
-    #stu=(input('enter student name'))
-    #t=input('current_time:')
-    print(d1[stu])
-    for i in d1[stu][' Time']:
-        if i<t ==
-
-# Read the text file and store the data in a list
-#with open('2.txt', 'r') as f:
-#  data = f.readlines()
-
-# Sort the data based on the first number found in each line
-#sorted_data = sorted(data, key=lambda x: int(x.split()[0]) if x.split()[0].isdigit() else -1)
-
-# Create a list of lists with each line of the text file as a sub-list
-#data_list = [line.strip().split(',') for line in sorted_data]
-
-# Ask the user to choose between searching by name, time, or entry and exit
-#while True:
-#  print("""For records by the name: 'Press 1'
-#For records by time: 'Press 2'
-#For Record of Entry and Exit: 'Press 3'\n""")
-#  choice = int(input("Choose any number between 1, 2, or 3: "))
-#  if choice not in [1, 2, 3]:
-#    break
-#  
-#  # If the user chooses name, ask for the TA name and write the records to a new file
-#  if choice == 1:
-#    name = input("Enter TA Name: ")
-#    ta_data = [line for line in data_list if line[0] == name]
-#    with open("record_by_name.txt", "w") as f:
-#      f.write("\n".join([",".join(line) for line in ta_data]))
-#  
-#  # If the user chooses time, ask for the current time and write the result to a new file
-#  if choice == 2:
-#    current_time = input("Enter current time: ")
-#    with open("record_by_time.txt", "w") as f:
-#      for line in data_list:
-#        if line[2] == current_time:
-#          f.write(f"{line[0]} is {line[1]} at {line[2]}")
-#  
-#  # If the user chooses entry and exit, write the result to a new file
-#  if choice == 3:
-#    with open("record_of_entry_and_exit.txt", "w") as f:
-#      for line in data_list:
-    #    f.write(f"{line[0]} {line[1]} at {line[2]}")
-    
+        print('Wrong input. Please try again.')
