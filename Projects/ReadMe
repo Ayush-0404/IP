@@ -1,0 +1,85 @@
+### README
+
+# Campus Entry/Exit Management System
+
+This Python program processes and manages the entry and exit records of IIIT-D students living off-campus. The data includes entries with the student's name, crossing type (ENTER or EXIT), gate number, and time (in 24-hour format). The program performs the following tasks:
+
+1. **Data Processing and Storage**:
+   - Reads a sorted data file containing student entry and exit records.
+   - Stores the data in a nested dictionary where each student's records are maintained with details of crossing type, gate number, and time.
+
+2. Query Functions:
+   - Query 1: Given a student name and current time, displays the student's movements throughout the day and determines if the student is currently on campus.
+   - Query 2: Given a start time and end time (in 24-hour format), determines all students who entered or exited the campus during this period and saves the results to an output file.
+   - Query 3: Given a gate number, calculates the number of times students entered and exited the campus through that gate.
+
+## Installation and Usage
+
+### Prerequisites
+- Python 3.x
+
+### Setup
+1. Place the sorted data file (`sorted_data.txt`) in the same directory as the Python script.
+2. Run the Python script.
+
+### Running the Program
+- Execute the script in a Python environment.
+- Follow the on-screen instructions to select and perform queries.
+
+### Code Explanation
+
+#### Data Reading and Storage
+The program reads a sorted data file and processes each line to extract the student's name, crossing type, gate number, and time. This data is stored in a nested dictionary with the student's name as the key.
+
+#### Query Functions
+- Query 1: 
+  - Takes a student name and current time as input.
+  - Retrieves and displays the student's entry/exit records for the day.
+  - Determines if the student is currently on campus based on the last crossing type.
+  - Writes the records and campus presence status to an output file.
+
+- Query 2: 
+  - Takes a start time and end time as input.
+  - Identifies students who entered or exited the campus within this time period.
+  - Writes the results to an output file.
+
+- Query 3: 
+  - Takes a gate number as input.
+  - Calculates and displays the count of entries and exits through the specified gate.
+
+#### Main Loop
+The main loop allows users to select a query by entering a number (1 to 3) or pressing Enter to exit. It handles user inputs and calls the appropriate query functions.
+
+## Example Usage
+
+```plaintext
+Select option (1 to 3), or press Enter to exit:
+Enter option: 1
+Enter student name: John_Doe
+Enter current time: 15:30
+```
+
+The above input will execute Query 1, displaying John Doe's movements throughout the day and whether he is currently on campus.
+
+```plaintext
+Select option (1 to 3), or press Enter to exit:
+Enter option: 2
+Enter start time: 09:00
+Enter end time: 17:00
+```
+
+The above input will execute Query 2, identifying all students who entered or exited the campus between 09:00 and 17:00 and saving the results to an output file.
+
+Select option (1 to 3), or press Enter to exit:
+Enter option: 3
+Enter gate number: 1
+```
+
+The above input will execute Query 3, calculating the number of times students entered and exited the campus through gate number 1.
+
+## Output Files
+- **query1_output.txt**: Contains the records of the queried student and their current presence status.
+- **query2_output.txt**: Contains the records of all students who entered or exited the campus during the specified time period.
+
+## Conclusion
+This program efficiently manages and queries entry/exit records of IIIT-D students, providing a robust solution for campus entry/exit management.
