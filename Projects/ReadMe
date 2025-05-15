@@ -1,17 +1,24 @@
-### README
+Here's the updated content in Markdown format that you can directly paste into your `ReadMe` file:
 
+```markdown
 # Campus Entry/Exit Management System
 
 This Python program processes and manages the entry and exit records of IIIT-D students living off-campus. The data includes entries with the student's name, crossing type (ENTER or EXIT), gate number, and time (in 24-hour format). The program performs the following tasks:
+
+---
+
+## Features
 
 1. **Data Processing and Storage**:
    - Reads a sorted data file containing student entry and exit records.
    - Stores the data in a nested dictionary where each student's records are maintained with details of crossing type, gate number, and time.
 
-2. Query Functions:
-   - Query 1: Given a student name and current time, displays the student's movements throughout the day and determines if the student is currently on campus.
-   - Query 2: Given a start time and end time (in 24-hour format), determines all students who entered or exited the campus during this period and saves the results to an output file.
-   - Query 3: Given a gate number, calculates the number of times students entered and exited the campus through that gate.
+2. **Query Functions**:
+   - **Query 1**: Displays a student's movements throughout the day and determines if the student is currently on campus.
+   - **Query 2**: Identifies students who entered or exited the campus within a specified time range and saves the results to an output file.
+   - **Query 3**: Calculates the number of entries and exits through a specific gate.
+
+---
 
 ## Installation and Usage
 
@@ -26,60 +33,81 @@ This Python program processes and manages the entry and exit records of IIIT-D s
 - Execute the script in a Python environment.
 - Follow the on-screen instructions to select and perform queries.
 
-### Code Explanation
+---
 
-#### Data Reading and Storage
-The program reads a sorted data file and processes each line to extract the student's name, crossing type, gate number, and time. This data is stored in a nested dictionary with the student's name as the key.
+## Code Overview
 
-#### Query Functions
-- Query 1: 
-  - Takes a student name and current time as input.
-  - Retrieves and displays the student's entry/exit records for the day.
-  - Determines if the student is currently on campus based on the last crossing type.
-  - Writes the records and campus presence status to an output file.
+### Data Reading and Storage
+The program reads a sorted data file (`sorted_data.txt`) line by line and extracts:
+- Student name
+- Crossing type (ENTER/EXIT)
+- Gate number
+- Time (in 24-hour format)
 
-- Query 2: 
-  - Takes a start time and end time as input.
-  - Identifies students who entered or exited the campus within this time period.
-  - Writes the results to an output file.
+This data is stored in a nested dictionary with the student's name as the key.
 
-- Query 3: 
-  - Takes a gate number as input.
-  - Calculates and displays the count of entries and exits through the specified gate.
+### Query Functions
+1. **Query 1**:  
+   - Input: Student name and current time.  
+   - Output: Displays the student's movements for the day and whether they are currently on campus. Results are written to `query1_output.txt`.  
 
-#### Main Loop
-The main loop allows users to select a query by entering a number (1 to 3) or pressing Enter to exit. It handles user inputs and calls the appropriate query functions.
+2. **Query 2**:  
+   - Input: Start time and end time.  
+   - Output: Lists all students who entered or exited the campus during the specified time period. Results are written to `query2_output.txt`.  
+
+3. **Query 3**:  
+   - Input: Gate number.  
+   - Output: Displays the count of entries and exits through the specified gate.
+
+### Main Loop
+The program operates in a loop, allowing users to select a query (1 to 3) or exit by pressing Enter. It processes user input and executes the corresponding query function.
+
+---
 
 ## Example Usage
 
+### Query 1: Student Movements and Campus Presence
 ```plaintext
 Select option (1 to 3), or press Enter to exit:
 Enter option: 1
 Enter student name: John_Doe
 Enter current time: 15:30
 ```
+Output: Displays John Doe's movements for the day and their campus presence status.
 
-The above input will execute Query 1, displaying John Doe's movements throughout the day and whether he is currently on campus.
+---
 
+### Query 2: Students Entering/Exiting During a Time Range
 ```plaintext
 Select option (1 to 3), or press Enter to exit:
 Enter option: 2
 Enter start time: 09:00
 Enter end time: 17:00
 ```
+Output: Lists all students who entered or exited the campus between 09:00 and 17:00.
 
-The above input will execute Query 2, identifying all students who entered or exited the campus between 09:00 and 17:00 and saving the results to an output file.
+---
 
+### Query 3: Gate Usage Statistics
+```plaintext
 Select option (1 to 3), or press Enter to exit:
 Enter option: 3
 Enter gate number: 1
 ```
+Output: Displays the number of entries and exits through gate number 1.
 
-The above input will execute Query 3, calculating the number of times students entered and exited the campus through gate number 1.
+---
 
 ## Output Files
-- **query1_output.txt**: Contains the records of the queried student and their current presence status.
-- **query2_output.txt**: Contains the records of all students who entered or exited the campus during the specified time period.
+
+- **`query1_output.txt`**: Contains the queried student's movements and current campus presence status.
+- **`query2_output.txt`**: Lists all students who entered or exited the campus within a specified time range.
+
+---
 
 ## Conclusion
-This program efficiently manages and queries entry/exit records of IIIT-D students, providing a robust solution for campus entry/exit management.
+
+The Campus Entry/Exit Management System efficiently processes and queries entry/exit records, making it a valuable tool for campus management.
+```
+
+You can copy and paste this Markdown content directly into your `ReadMe.md` file. Let me know if you need help with anything else!
